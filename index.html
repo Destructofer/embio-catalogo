@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#0e2747" />
+<title>EMBIO · Portafolio</title>
+<meta name="description" content="Portafolio EMBIO · Medicamentos de alta especialidad. Endopediatría, Oncología, Fertilidad, Vacunas, Endocrinología." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400&display=swap" rel="stylesheet">
+
+<!-- Preload first page so it appears instantly on scan -->
+<link rel="preload" as="image" href="pages-web/page-01.webp" fetchpriority="high">
+
+<style>
+*,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  font-family: 'Montserrat', system-ui, sans-serif;
+  background: #0e2747;
+  color: #0a1929;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+
+:root {
+  --navy: #0e2747;
+  --navy-deep: #061832;
+  --navy-soft: #1a3a6e;
+  --teal: #2d9a7f;
+  --teal-bright: #3bb894;
+  --teal-deep: #1e6b56;
+  --cream: #f8f5ee;
+  --ink: #0a1929;
+  --ink-soft: #3d4a5c;
+  --muted: #8a95a5;
+  --line: rgba(14, 39, 71, 0.08);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* ============ SCROLL PROGRESS BAR ============ */
+.progress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 2px;
+  width: 0%;
+  background: linear-gradient(90deg, var(--teal), var(--teal-bright));
+  z-index: 100;
+  transition: width 0.1s linear;
+  box-shadow: 0 0 8px rgba(45, 154, 127, 0.6);
+}
+
+/* ============ STICKY TOP BAR ============ */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: rgba(14, 39, 71, 0.92);
+  backdrop-filter: saturate(180%) blur(16px);
+  -webkit-backdrop-filter: saturate(180%) blur(16px);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.topbar-logo { height: 44px; width: auto; filter: brightness(0) invert(1); }
+.topbar-actions { display: flex; gap: 8px; }
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.08);
+  color: #f8f5ee;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+.icon-btn:hover, .icon-btn:active { background: rgba(45, 154, 127, 0.25); transform: scale(1.05); }
+.icon-btn svg { width: 18px; height: 18px; }
+
+/* ============ HERO FULL SCREEN ============ */
+.welcome {
+  min-height: 100svh;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(160deg, var(--navy-deep) 0%, var(--navy) 55%, #0b3060 100%);
+  color: #f8f5ee;
+  padding: 40px 24px;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+/* animated mesh glow */
+.welcome::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 30%, rgba(45,154,127,0.22) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 40% at 20% 80%, rgba(45,154,127,0.1) 0%, transparent 55%);
+  pointer-events: none;
+  animation: glowPulse 6s ease-in-out infinite alternate;
+}
+@keyframes glowPulse {
+  from { opacity: 0.7; }
+  to   { opacity: 1; }
+}
+/* diagonal stripe texture */
+.welcome::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 40px,
+    rgba(255,255,255,0.015) 40px,
+    rgba(255,255,255,0.015) 41px
+  );
+  pointer-events: none;
+}
+
+.welcome-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 680px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+/* big logo */
+.hero-logo {
+  height: clamp(70px, 18vw, 160px);
+  width: auto;
+  filter: brightness(0) invert(1) drop-shadow(0 0 40px rgba(45,154,127,0.45));
+  animation: logoFadeIn 1s ease both;
+}
+@keyframes logoFadeIn {
+  from { opacity: 0; transform: translateY(-14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* gradient divider */
+.hero-sep {
+  width: 72px;
+  height: 2px;
+  margin: 30px auto 28px;
+  background: linear-gradient(90deg, transparent, var(--teal-bright), transparent);
+  border-radius: 2px;
+  animation: logoFadeIn 1s 0.2s ease both;
+}
+
+.hero-tagline {
+  font-size: clamp(0.85rem, 2.5vw, 1.1rem);
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(248,245,238,0.9);
+  animation: logoFadeIn 1s 0.35s ease both;
+}
+.hero-sub {
+  margin-top: 10px;
+  font-size: clamp(0.7rem, 1.8vw, 0.8rem);
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  color: rgba(248,245,238,0.45);
+  text-transform: uppercase;
+  animation: logoFadeIn 1s 0.5s ease both;
+}
+
+.welcome-scroll {
+  margin-top: 52px;
+  font-size: 9px;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  animation: logoFadeIn 1s 0.75s ease both;
+}
+.welcome-scroll svg { width: 14px; height: 14px; animation: bounce 2s infinite; }
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(5px); }
+}
+
+/* ============ CATALOG PAGES ============ */
+.catalog {
+  background: var(--cream);
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+.page-wrap {
+  width: 100%;
+  max-width: 860px;
+  position: relative;
+  background: white;
+}
+.page-wrap img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+@media (min-width: 900px) {
+  .catalog { padding: 24px 20px; gap: 12px; background: #e8e3d7; }
+  .page-wrap {
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px -4px rgba(14,39,71,0.15);
+  }
+}
+
+/* Skeleton loader for images */
+.page-wrap.loading {
+  aspect-ratio: 612/792;
+  background: linear-gradient(110deg, #ece6d6 8%, #f5f0e3 18%, #ece6d6 33%);
+  background-size: 200% 100%;
+  animation: shimmer 1.6s linear infinite;
+}
+.page-wrap.loading img { visibility: hidden; }
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ============ INTERLUDE (between catalog and form) ============ */
+.interlude {
+  background: var(--navy);
+  color: #f8f5ee;
+  padding: 60px 20px 40px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.interlude::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(45, 154, 127, 0.2) 0%, transparent 55%);
+}
+.interlude-inner { position: relative; z-index: 2; max-width: 580px; margin: 0 auto; }
+.interlude .eyebrow {
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--teal-bright);
+  font-weight: 500;
+  margin-bottom: 14px;
+  display: inline-block;
+}
+.interlude h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(1.8rem, 5.5vw, 2.6rem);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+.interlude h2 em { font-style: italic; color: var(--teal-bright); font-weight: 300; }
+.interlude p {
+  margin-top: 16px;
+  color: rgba(248, 245, 238, 0.7);
+  font-size: 15px;
+}
+
+/* ============ FORM SECTION ============ */
+.form-section {
+  background: var(--cream);
+  padding: 48px 20px 56px;
+}
+.form-wrap { max-width: 560px; margin: 0 auto; }
+.form-card {
+  background: white;
+  border-radius: 24px;
+  padding: 32px 24px;
+  box-shadow: 0 1px 3px rgba(14,39,71,0.04), 0 20px 50px -20px rgba(14,39,71,0.18);
+  position: relative;
+  overflow: hidden;
+}
+.form-card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--navy), var(--teal), var(--teal-bright));
+}
+.form-card h3 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--navy);
+  margin-bottom: 4px;
+  letter-spacing: -0.01em;
+}
+.form-card h3 em { font-style: italic; color: var(--teal); font-weight: 400; }
+.form-small {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 24px;
+}
+.field { margin-bottom: 16px; }
+.field label {
+  display: block;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 7px;
+}
+.field input, .field select {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1.5px solid var(--line);
+  border-radius: 12px;
+  font-family: inherit;
+  font-size: 15px;
+  color: var(--ink);
+  background: var(--cream);
+  transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.field input:focus, .field select:focus {
+  outline: none;
+  border-color: var(--teal);
+  background: white;
+  box-shadow: 0 0 0 4px rgba(45, 154, 127, 0.1);
+}
+.field select {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path fill='%230e2747' d='M6 8L0 0h12z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  padding-right: 42px;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 16px 24px;
+  background: var(--navy);
+  color: white;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.3s cubic-bezier(.2,.7,.2,1);
+  margin-top: 10px;
+}
+.submit-btn:hover { background: var(--navy-soft); }
+.submit-btn:active { transform: scale(0.98); }
+.submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+.submit-btn svg { width: 16px; height: 16px; }
+
+.form-success, .form-error {
+  margin-top: 14px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  font-size: 14px;
+  display: none;
+}
+.form-success {
+  background: rgba(45, 154, 127, 0.1);
+  color: var(--teal-deep);
+  border: 1px solid rgba(45, 154, 127, 0.25);
+}
+.form-error {
+  background: #fef2f2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+}
+.form-success.show, .form-error.show { display: block; }
+
+/* ============ CONTACTS ============ */
+.contacts {
+  background: var(--cream);
+  padding: 12px 20px 48px;
+}
+.contacts-wrap { max-width: 560px; margin: 0 auto; }
+.contacts-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: var(--navy);
+  margin: 24px 0 20px;
+  text-align: center;
+}
+.contacts-title em { font-style: italic; color: var(--teal); font-weight: 400; }
+
+.contact-card {
+  background: white;
+  border-radius: 18px;
+  padding: 20px;
+  margin-bottom: 12px;
+  border: 1px solid var(--line);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+.contact-card:active { transform: scale(0.99); }
+.contact-role {
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--teal);
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.contact-name {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: var(--navy);
+  margin-bottom: 12px;
+}
+.contact-name strong { font-weight: 600; }
+.contact-links { display: flex; flex-direction: column; gap: 8px; }
+.contact-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 500;
+  padding: 11px 14px;
+  border-radius: 10px;
+  background: var(--cream);
+  transition: all 0.2s ease;
+  word-break: break-all;
+}
+.contact-link:active { background: rgba(45, 154, 127, 0.15); transform: scale(0.98); }
+.contact-link svg { width: 16px; height: 16px; flex-shrink: 0; color: var(--teal); }
+.contact-link .badge {
+  margin-left: auto;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+/* ============ FOOTER ============ */
+.footer {
+  background: var(--navy-deep);
+  color: rgba(248, 245, 238, 0.7);
+  padding: 28px 20px calc(90px + var(--safe-bottom));
+  text-align: center;
+}
+.footer img {
+  height: 24px;
+  margin: 0 auto 14px;
+  filter: brightness(0) invert(1);
+  opacity: 0.85;
+}
+.footer p {
+  font-size: 12px;
+  max-width: 400px;
+  margin: 0 auto;
+}
+.footer .web {
+  display: inline-block;
+  margin-top: 10px;
+  color: var(--teal-bright);
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.05em;
+}
+
+/* ============ STICKY FLOATING CTA ============ */
+.floating-cta {
+  position: fixed;
+  bottom: calc(14px + var(--safe-bottom));
+  left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  z-index: 50;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 26px;
+  background: linear-gradient(100deg, var(--navy) 0%, var(--teal) 100%);
+  color: white;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  box-shadow:
+    0 4px 20px -2px rgba(45, 154, 127, 0.45),
+    0 12px 40px -10px rgba(0, 0, 0, 0.4);
+  transition: transform 0.5s cubic-bezier(.2,.7,.2,1), box-shadow 0.2s ease;
+  white-space: nowrap;
+}
+.floating-cta.visible { transform: translateX(-50%) translateY(0); }
+.floating-cta:hover { box-shadow: 0 6px 28px -2px rgba(45,154,127,0.6), 0 16px 50px -10px rgba(0,0,0,0.4); }
+.floating-cta:active { transform: translateX(-50%) translateY(0) scale(0.97); }
+.floating-cta svg { width: 16px; height: 16px; }
+.floating-cta .pulse {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #fff;
+  position: relative;
+}
+.floating-cta .pulse::before {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.4);
+  animation: pulseRing 1.6s ease-out infinite;
+}
+@keyframes pulseRing {
+  0% { transform: scale(0.6); opacity: 0.8; }
+  100% { transform: scale(2); opacity: 0; }
+}
+.floating-cta.hidden-at-form { transform: translateX(-50%) translateY(120px) !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+
+<header class="topbar">
+  <img src="embio-icon.webp" alt="EMBIO" class="topbar-logo" />
+  <div class="topbar-actions">
+    <a href="tel:+528000011008" class="icon-btn" aria-label="Llamar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+    </a>
+    <a href="#form" class="icon-btn" aria-label="Déjanos tus datos">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.12 2.12 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+    </a>
+  </div>
+</header>
+
+<section class="welcome">
+  <div class="welcome-inner">
+    <img src="embio-logo-horizontal.webp" alt="EMBIO" class="hero-logo" />
+    <div class="hero-sep"></div>
+    <p class="hero-tagline">Especialidades Médico Biológicas de México</p>
+    <p class="hero-sub">Expertos en medicamento · Más de 13 años · Abril 2026</p>
+    <a href="#catalog" class="welcome-scroll">
+      Explorar portafolio
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+    </a>
+  </div>
+</section>
+
+<section class="catalog" id="catalog">
+  <div class="page-wrap"><img src="pages-web/page-01.webp" alt="EMBIO Portafolio · Portada" width="1200" height="1552" fetchpriority="high" /></div>
+  <div class="page-wrap loading"><img data-src="pages-web/page-02.webp" alt="¿Quiénes somos?" loading="lazy" /></div>
+  <div class="page-wrap loading"><img data-src="pages-web/page-03.webp" alt="Endopediatría" loading="lazy" /></div>
+  <div class="page-wrap loading"><img data-src="pages-web/page-04.webp" alt="Hormona de crecimiento diaria" loading="lazy" /></div>
+  <div class="page-wrap loading"><img data-src="pages-web/page-05.webp" alt="Hormona semanal y Saizen" loading="lazy" /></div>
+  <div class="page-wrap loading"><img data-src="pages-web/page-06.webp" alt="Retardantes de pubertad precoz" loading="lazy" /></div>
+  <div class="page-wrap loading"><img data-src="pages-web/page-07.webp" alt="Oncología" loading="lazy" /></div>
+  <div class="page-wrap loading"><img data-src="pages-web/page-08.webp" alt="Oncología Pfizer" loading="lazy" /></div>
+  <div class="page-wrap loading"><img data-src="pages-web/page-09.webp" alt="Oncología Merck Sandoz Asofarma" loading="lazy" /></div>
+  <div class="page-wrap loading"><img data-src="pages-web/page-10.webp" alt="Oncología Roche" loading="lazy" /></div>
+  <div class="page-wrap loading"><img data-src="pages-web/page-11.webp" alt="Oncología Synthon Hetero" loading="lazy" /></div>
+  <div class="page-wrap loading"><img data-src="pages-web/page-12.webp" alt="Fertilidad" loading="lazy" /></div>
+  <div class="page-wrap loading"><img data-src="pages-web/page-13.webp" alt="Inducción ovulatoria Corneumon" loading="lazy" /></div>
+  <div class="page-wrap loading"><img data-src="pages-web/page-14.webp" alt="Gonal Pergoveris Puregon" loading="lazy" /></div>
+  <div class="page-wrap loading"><img data-src="pages-web/page-15.webp" alt="Tratamiento integral fertilidad" loading="lazy" /></div>
+  <div class="page-wrap loading"><img data-src="pages-web/page-16.webp" alt="Vacunas" loading="lazy" /></div>
+  <div class="page-wrap loading"><img data-src="pages-web/page-17.webp" alt="Vacunas GSK Boostrix Engerix Fluzactal" loading="lazy" /></div>
+  <div class="page-wrap loading"><img data-src="pages-web/page-18.webp" alt="Vacunas GSK Sanofi Hexacima" loading="lazy" /></div>
+  <div class="page-wrap loading"><img data-src="pages-web/page-19.webp" alt="Vacunas MSD Sanofi" loading="lazy" /></div>
+  <div class="page-wrap loading"><img data-src="pages-web/page-20.webp" alt="Varivax Prevenar Abrysvo" loading="lazy" /></div>
+  <div class="page-wrap loading"><img data-src="pages-web/page-21.webp" alt="Endocrinología" loading="lazy" /></div>
+  <div class="page-wrap loading"><img data-src="pages-web/page-22.webp" alt="Ozempic Rybelsus" loading="lazy" /></div>
+  <div class="page-wrap loading"><img data-src="pages-web/page-23.webp" alt="Wegovy" loading="lazy" /></div>
+  <div class="page-wrap loading"><img data-src="pages-web/page-24.webp" alt="Antiinfecciosos intrahospitalarios" loading="lazy" /></div>
+  <div class="page-wrap loading"><img data-src="pages-web/page-25.webp" alt="Página 25" loading="lazy" /></div>
+</section>
+
+<section class="interlude">
+  <div class="interlude-inner">
+    <span class="eyebrow">¿Te interesa alguno de nuestros productos?</span>
+    <h2>Déjanos tus datos y <em>te contactamos</em> en menos de 24 horas.</h2>
+    <p>Sin compromiso. Un especialista te atenderá según el área de tu interés.</p>
+  </div>
+</section>
+
+<section class="form-section" id="form">
+  <div class="form-wrap">
+    <div class="form-card">
+      <h3>Déjanos tus <em>datos</em></h3>
+      <p class="form-small">Todos los campos con * son obligatorios.</p>
+
+      <!--
+        CONFIGURACIÓN DEL FORMULARIO:
+        Opción A (Netlify): ya está listo con data-netlify="true". Solo elimina el atributo action.
+        Opción B (Formspree): reemplaza REEMPLAZA_CON_TU_ENDPOINT por tu endpoint de https://formspree.io
+      -->
+      <form id="leadForm"
+            action="https://formspree.io/f/REEMPLAZA_CON_TU_ENDPOINT"
+            method="POST"
+            data-netlify="true"
+            netlify-honeypot="bot-field"
+            name="embio-leads">
+        <input type="hidden" name="form-name" value="embio-leads" />
+        <p style="display:none"><label>No llenar: <input name="bot-field" /></label></p>
+        <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
+
+        <div class="field">
+          <label for="nombre">Nombre del médico *</label>
+          <input type="text" id="nombre" name="nombre" required placeholder="Dr./Dra. ..." autocomplete="name" />
+        </div>
+
+        <div class="field">
+          <label for="correo">Correo *</label>
+          <input type="email" id="correo" name="correo" required placeholder="tu@correo.com" autocomplete="email" inputmode="email" />
+        </div>
+
+        <div class="field">
+          <label for="telefono">Teléfono *</label>
+          <input type="tel" id="telefono" name="telefono" required placeholder="55 0000 0000" autocomplete="tel" inputmode="tel" />
+        </div>
+
+        <div class="field">
+          <label for="interes">Área de interés (opcional)</label>
+          <select id="interes" name="interes">
+            <option value="">Selecciona una opción</option>
+            <option value="Endopediatría">Endopediatría</option>
+            <option value="Oncología">Oncología</option>
+            <option value="Fertilidad">Fertilidad</option>
+            <option value="Vacunas">Vacunas</option>
+            <option value="Endocrinología">Endocrinología</option>
+            <option value="Antiinfecciosos">Antiinfecciosos</option>
+            <option value="Otro">Otro / Información general</option>
+          </select>
+        </div>
+
+        <button type="submit" class="submit-btn" id="submitBtn">
+          <span id="btnText">Enviar solicitud</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </button>
+
+        <div class="form-success" id="formSuccess">
+          ¡Gracias! Un especialista se pondrá en contacto contigo pronto.
+        </div>
+        <div class="form-error" id="formError">
+          Hubo un problema. Intenta de nuevo o contáctanos por teléfono.
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section class="contacts">
+  <div class="contacts-wrap">
+    <h2 class="contacts-title">O llámanos <em>directamente</em></h2>
+
+    <div class="contact-card">
+      <div class="contact-role">Director Comercial Alta Especialidad</div>
+      <div class="contact-name">Lic. Luis Felipe <strong>Rangel</strong></div>
+      <div class="contact-links">
+        <a href="tel:+525555059976" class="contact-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+          55 5505 9976
+          <span class="badge">Llamar</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="contact-card">
+      <div class="contact-role">Especialista en Endopediatría</div>
+      <div class="contact-name">Lic. Nayelli <strong>García</strong></div>
+      <div class="contact-links">
+        <a href="tel:+523333372127" class="contact-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+          33 3337 2127
+          <span class="badge">Llamar</span>
+        </a>
+        <a href="mailto:ngarcia@embio.com.mx" class="contact-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>
+          ngarcia@embio.com.mx
+          <span class="badge">Email</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="contact-card">
+      <div class="contact-role">Especialista en Fertilidad</div>
+      <div class="contact-name">Lic. Karina <strong>Alcántara</strong></div>
+      <div class="contact-links">
+        <a href="tel:+525544464000" class="contact-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+          55 4446 4000
+          <span class="badge">Llamar</span>
+        </a>
+        <a href="mailto:karinaalcantara@embio.com.mx" class="contact-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>
+          karinaalcantara@embio.com.mx
+          <span class="badge">Email</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="contact-card">
+      <div class="contact-role">Coordinadora Experiencia al Paciente</div>
+      <div class="contact-name">Lic. Alicia <strong>Gallegos</strong></div>
+      <div class="contact-links">
+        <a href="tel:+528000011008" class="contact-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+          800 001 1008
+          <span class="badge">Endopediatría</span>
+        </a>
+        <a href="tel:+528000011009" class="contact-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+          800 001 1009
+          <span class="badge">Fertilidad · Vacunas</span>
+        </a>
+        <a href="tel:+525611090333" class="contact-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+          56 1109 0333
+          <span class="badge">Llamar</span>
+        </a>
+        <a href="mailto:agallegos@embio.com.mx" class="contact-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>
+          agallegos@embio.com.mx
+          <span class="badge">Email</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <img src="embio-logo-horizontal.webp" alt="EMBIO" />
+  <p>Especialidades Médico Biológicas de México · Expertos en medicamento.</p>
+  <a href="https://embio.com.mx" target="_blank" rel="noopener" class="web">embio.com.mx</a>
+</footer>
+
+<a href="#form" class="floating-cta" id="floatingCta">
+  <span class="pulse"></span>
+  Déjanos tus datos
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l10-10M7 7h10v10"/></svg>
+</a>
+
+<script>
+  // Scroll progress bar
+  const progress = document.getElementById('progress');
+  const onScroll = () => {
+    const h = document.documentElement;
+    const scrolled = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+    progress.style.width = Math.max(0, Math.min(100, scrolled)) + '%';
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // Lazy-load catalog pages
+  const imgIO = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const img = entry.target;
+        const src = img.dataset.src;
+        if (src) {
+          img.src = src;
+          img.onload = () => img.parentElement.classList.remove('loading');
+          img.onerror = () => img.parentElement.classList.remove('loading');
+          img.removeAttribute('data-src');
+        }
+        imgIO.unobserve(img);
+      }
+    });
+  }, { rootMargin: '400px 0px' });
+  document.querySelectorAll('img[data-src]').forEach(img => imgIO.observe(img));
+
+  // Floating CTA visibility
+  const cta = document.getElementById('floatingCta');
+  const formSection = document.getElementById('form');
+  const welcomeSection = document.querySelector('.welcome');
+
+  const ctaShowIO = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) cta.classList.add('visible');
+      else cta.classList.remove('visible');
+    });
+  }, { threshold: 0 });
+  ctaShowIO.observe(welcomeSection);
+
+  const ctaHideIO = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) cta.classList.add('hidden-at-form');
+      else cta.classList.remove('hidden-at-form');
+    });
+  }, { threshold: 0.3 });
+  ctaHideIO.observe(formSection);
+
+  // Form submission
+  const form = document.getElementById('leadForm');
+  const btn = document.getElementById('submitBtn');
+  const btnText = document.getElementById('btnText');
+  const success = document.getElementById('formSuccess');
+  const errorBox = document.getElementById('formError');
+
+  form.addEventListener('submit', async (e) => {
+    if (form.action.includes('REEMPLAZA_CON_TU_ENDPOINT')) {
+      if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol === 'file:') {
+        e.preventDefault();
+        errorBox.textContent = 'Configura el endpoint de Formspree o despliega en Netlify para que el formulario funcione.';
+        errorBox.classList.add('show');
+        return;
+      }
+      return; // Netlify will intercept
+    }
+
+    e.preventDefault();
+    btn.disabled = true;
+    btnText.textContent = 'Enviando...';
+    success.classList.remove('show');
+    errorBox.classList.remove('show');
+
+    try {
+      const data = new FormData(form);
+      const res = await fetch(form.action, {
+        method: 'POST',
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      });
+      if (res.ok) {
+        form.reset();
+        success.classList.add('show');
+        btnText.textContent = '¡Enviado!';
+        success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        setTimeout(() => {
+          btnText.textContent = 'Enviar solicitud';
+          btn.disabled = false;
+        }, 3000);
+      } else {
+        throw new Error('Server error');
+      }
+    } catch (err) {
+      errorBox.classList.add('show');
+      btnText.textContent = 'Enviar solicitud';
+      btn.disabled = false;
+    }
+  });
+</script>
+</body>
+</html>
